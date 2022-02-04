@@ -6,22 +6,23 @@ import logoImg from '../assets/images/logo.svg'
 import googleIconImg from '../assets/images/google-icon.svg'
 
 import { Button } from '../components/Button';
-import { AuthContext, TestContext } from '../App'
+import { AuthContext } from '../contexts/AuthContext'
 import '../styles/auth.scss'
+import { useAuth } from "../hooks/useAuth";
 
 
 export function Home(){
 
   //função para navegar entre telas;
   const history = useHistory();
-  const {user, signInWithGoogle} = useContext(AuthContext)
+  const {user, signInWithGoogle} = useAuth();
 
   async function handleCreateRoom(){
-    if(!user) {
-      await signInWithGoogle()
-    }
+     if(!user) {
+       await signInWithGoogle();
+     }
     
-    history.push('/rooms/new');
+      history.push('/rooms/new');
   }
 
   return(
